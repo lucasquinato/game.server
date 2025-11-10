@@ -23,12 +23,16 @@ export class User extends Model {
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true,
+                unique: {
+                    msg: "Endereço de e-mail já registrado.",
+                },
             },
             username: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true,
+                unique: {
+                    msg: "Nome de usuário em uso."
+                },
             },
             password: {
                 type: DataTypes.STRING,
