@@ -8,9 +8,7 @@ import { responseJSON } from "../../../handlers/response.json.js";
  */
 export async function userRegister(req, res) {
     try {
-        const { email, username, password } = req.body;
-
-        const createUser = await User.create({ email, username, password });
+        const createUser = await User.create(req.body);
 
         return responseJSON(res, 201, {
             error: false,

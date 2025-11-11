@@ -1,4 +1,6 @@
+import { numberVerify } from "../../../handlers/number.verify.js";
 import { DataTypes, Model } from "sequelize";
+import bcrypt from "bcrypt";
 
 /**
  * @example
@@ -64,6 +66,23 @@ export class User extends Model {
             underscored: true,
             timestamps: true,
             paranoid: true,
+
+            hooks: {
+                async beforeSave(account) {
+                    if (account.changed("password")) {
+                        const getRoundsNumber = numberVerify(
+                            process.env.BCRYPT_ROUNDS,
+                            "Banco de Dados | Salt Rounds.", {
+                                min: 4,
+                                max: 15,
+                            },
+                        );
+
+                        const genSalt = await bcrypt.genSalt(getRoundsNumber);
+                        account.password = await bcrypt.hash(account.password, genSalt);
+                    }
+                },
+            },
 
         });
 

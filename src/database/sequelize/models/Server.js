@@ -1,5 +1,14 @@
 import { DataTypes, Model } from "sequelize";
 
+/**
+ * @example
+ * 
+ * // Correto:
+ * import { Server } from "@/db.index.js";
+ * 
+ * // Incorreto:
+ * import { Server } from "@/models/Server.js";
+ */
 export class Server extends Model {
 
     static initModel(sequelize) {
